@@ -1,5 +1,7 @@
 package com.aula.demo.Modelo;
 
+import org.springframework.data.annotation.Reference;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,7 +13,6 @@ public class Pessoa {
     private String nome;
     private String sexo;
     LocalDate dataNascimento;
-
     List<Endereco> listEndereco;
 
     public List<Endereco> getListEndereco() {
