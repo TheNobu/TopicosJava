@@ -1,13 +1,12 @@
 package com.aula.demo.Modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 
 @Entity
+@Table(name = "veiculo")
 public class Veiculo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,6 +15,17 @@ public class Veiculo implements Serializable {
     private String marca;
     private String cor;
 
+    public People getPeople() {
+        return people;
+    }
+
+    public void setPeople(People people) {
+        this.people = people;
+    }
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    private People people;
     public Veiculo(){
 
     }

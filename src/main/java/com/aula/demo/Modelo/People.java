@@ -1,13 +1,13 @@
 package com.aula.demo.Modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
+@Table(name = "people")
 public class People implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,6 +15,18 @@ public class People implements Serializable {
     private String nome;
     private String cpf;
     private String sexo;
+
+    public List<Veiculo> getVeiculo() {
+        return veiculo;
+    }
+
+    public void setVeiculo(List<Veiculo> veiculo) {
+        this.veiculo = veiculo;
+    }
+
+    @OneToMany(mappedBy = "people")
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    private List<Veiculo> veiculo;
 
     public People(){
 

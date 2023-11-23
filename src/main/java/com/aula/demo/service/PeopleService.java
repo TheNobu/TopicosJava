@@ -1,6 +1,7 @@
 package com.aula.demo.service;
 
 import com.aula.demo.Modelo.People;
+import com.aula.demo.Modelo.Veiculo;
 import com.aula.demo.repository.PeopleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,11 @@ public class PeopleService {
     private PeopleRepository repository;
 
     public People addPeople(People people){
+        if(!people.getVeiculo().isEmpty()){
+            for(Veiculo v : people.getVeiculo()){
+                v.setPeople(people);
+            }
+        }
         return repository.save(people);
     }
     public List<People> listAll(){

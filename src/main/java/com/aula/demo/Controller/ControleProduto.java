@@ -1,6 +1,6 @@
 package com.aula.demo.Controller;
 
-import com.aula.demo.Modelo.Produto;
+import com.aula.demo.Modelo.Prod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,32 +9,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/produto")
+@RequestMapping("/prod")
 public class ControleProduto {
 
-    private final List<Produto> listaProduto = new ArrayList<>();
+    private final List<Prod> listaProd = new ArrayList<>();
 
-    private Produto p;
+    private Prod p;
     private int id = 1;
 
     @PostMapping()
-    public Produto addProduto(@RequestBody Produto prod){
-        p = new Produto();
+    public Prod addProduto(@RequestBody Prod prod){
+        p = new Prod();
         p.setCodigo(Long.valueOf(id++));
         p.setDescricao(prod.getDescricao());
         p.setValor(prod.getValor());
-        listaProduto.add(p);
+        listaProd.add(p);
 
         return p;
     }
     @GetMapping()
-    public List<Produto> listaProduto(){
-        return listaProduto;
+    public List<Prod> listaProduto(){
+        return listaProd;
     }
     @GetMapping("/{id}")
     public ResponseEntity<Object> prodCodigo(@PathVariable(value = "id") Long id){
-        if(!listaProduto.isEmpty()){
-            for(Produto p : listaProduto) {
+        if(!listaProd.isEmpty()){
+            for(Prod p : listaProd) {
                 if(p.getCodigo() == id) {
                     return ResponseEntity.status(HttpStatus.OK).body(p);
                 }
@@ -43,9 +43,9 @@ public class ControleProduto {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não localizado !");
     }
     @PutMapping("/{id}")
-    public ResponseEntity<Object> altProd (@PathVariable(value = "id") Long id, @RequestBody Produto prod){
-        if(!listaProduto.isEmpty()){
-            for(Produto p : listaProduto) {
+    public ResponseEntity<Object> altProd (@PathVariable(value = "id") Long id, @RequestBody Prod prod){
+        if(!listaProd.isEmpty()){
+            for(Prod p : listaProd) {
                 if(p.getCodigo() == id) {
                     p.setDescricao(prod.getDescricao());
                     p.setValor(prod.getValor());
@@ -57,10 +57,10 @@ public class ControleProduto {
     }
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delProd(@PathVariable(value = "id")Long id){
-            if(!listaProduto.isEmpty()){
-                for (Produto p : listaProduto){
+            if(!listaProd.isEmpty()){
+                for (Prod p : listaProd){
                     if(p.getCodigo() == id){
-                        listaProduto.remove(p);
+                        listaProd.remove(p);
                         return ResponseEntity.status(HttpStatus.OK).body(p);
                     }
                 }
